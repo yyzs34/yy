@@ -197,19 +197,445 @@ public class Yuyi{
 
 ## 2023/9/9
 
+### Java switch开关语句
+
+
+switch语句是单条件多分支的开关语句，语法格式如下：
+
+```java
+switch(表达式) {
+    case 常量值1:语句1;break;
+    case 常量值2:语句2;break;
+    case 常量值3:语句3;break;
+    ……
+    case 常量值n:语句n;break;
+    default:语句n+1;
+}
+```
+
+​	switch语句中“表达式”的值可以是byte、short、int、char型，“常量值1”到“常量值n”也是byte、short、int、char型，而且要互不相同。
+
+​	switch语句首先计算表达式的值，如果表达式的值和某个case后面的常量值相等，就执行该case里的语句直到碰到break语句为止。如
+
+果某个case中没有使用break语句，一旦表达式的值和该case后面的常量值相等，程序不仅执行该case里的语句，而且继续执行后继的
+
+case里的语句，直到碰到break语句为止。若switch语句中的表达式的值不与任何case的常量值相等，则执行default后面的语句。switch
+
+语句中的default是可选的，如果它不存在，并且switch语句中表达式的值不与任何case的常量值相等，那么switch语句就不会进行任何
+
+处理。
+
+​	我们前面学习的if条件分支语句的共同特点是根据一个或多个条件选择执行一个分支操作，而不是选择执行多个分支操作。在switch语
+
+句中，通过合理地使用break语句，可以达到根据一个条件选择执行一个分支或多个分支操作的结果。
+
+**实例：**
+
+```java
+public class Main {
+    public static void main(String args[]){
+        char grade = 'B';
+        switch(grade) {
+            case 'A':
+                System.out.println("优秀");
+                break;
+            case 'B':
+                System.out.println("良好");
+                break;
+            case 'C':
+                System.out.println("及格");
+                break;
+            default:
+                System.out.println("未知");
+        }
+    }
+}
+```
+
+运行结果如下：
+
+```java
+ 良好
+```
+
+## 2023/9/10
+
+### Java do-while循环语句
+
+do-while循环语句的语法格式如下：
+
+```java
+do {
+    //语句
+}while(表达式)
+```
+
+**注意：**
+
+do-while循环和while循环的区别是do-while的循环体至少被执行一次。
 
 
 
+do-while循环语句的执行规则：
+
+（1）执行循环体，再进行（2）。
+
+（2）计算表达式的值，若该值为true，则进行（1），否则进行（3）。
+
+（3）结束do-while语句的执行。
 
 
 
+**实例：**
+
+```java
+public class Main {
+    public static void main(String[] args){
+        int a = 1;
+        do{
+            System.out.print(a);
+            a++;
+            System.out.print("\n");
+        }while( a < 10 );
+    }
+}
+```
 
 
 
+运行结果如下：
+
+```java
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+
+## 2023/9/11
+
+### Java continue语句
+
+continue语句是用关键字continue加上分号构成的语句，在循环体中可以使用continue语句。
+
+在一个循环中，如果在某次循环中执行了continue语句，那么本次循环就结束，即不再执行本次循环中循环体中continue语句后面的语句，而转入进行下一次循环。
+
+即提前结束此次循环。
+
+**实例：**
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        for(int a = 1; a < 10; a = a+1) {
+            if( a%2 == 0 ) {
+                continue;
+            }
+            System.out.print(a);
+            System.out.print("\n");
+        }
+    }
+}
+```
+
+运行结果如下：
+
+```java
+1
+3
+5
+7
+9
+```
+
+## 2023/9/12
+
+### Java break语句
+
+
+break语句是用关键字break加上分号构成的语句，在循环体中可以使用break语句。
+
+
+在一个循环中，如果在某次循环中执行了break语句，那么整个循环语句就结束。
+
+
+**实例：**
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        for(int a = 1; a < 10; a = a+1) {
+            if( a%2 == 0 ) {
+                break;
+            }
+            System.out.print(a);
+            System.out.print("\n");
+        }
+    }
+}
+```
 
 
 
+运行结果如下：
 
+```java
+1
+```
+
+## 2023/9/13
+
+### Java中Enum类下的values()方法
+
+枚举类中的元素是无法通过下标值来访问的，如果你想指定访问枚举类中的某个值，你只能直接写出它们的值，除此之外，别无他法。但
+
+是枚举类有一个values()方法，这个方法可以将枚举类转换成一个枚举类型的数组，转换成数组之后我们就可以通过下标来访问我们的枚
+
+举类中的值。比如下面的代码：
+
+```java
+enum Direction {
+ 
+    LEFT, RIGHT, UP, DOWN
+ 
+}
+```
+
+
+​    这里面有四个值，如果我们想通过下标来访问的话，就必须进行如下的操作：
+
+```java
+Direction dirs[] = Direction.values();
+ 
+for (int i = 0; i < dirs.length; i++) {
+ 
+     System.out.println(dirs[i]);
+ 
+}
+```
+
+
+这个操作有什么用呢?主要用途就是从这个枚举类中选取一个随机值，具体的代码如下：
+
+```java
+ Random r = new Random();
+ 
+int ri = r.netInt(dirs.length);
+ 
+Direction dir = dirs[ri];
+```
+
+
+
+## 2023/9/14
+
+### Java枚举的valueOf方法
+
+1. 前言
+在Java中，枚举是一种特殊的数据类型，它由一组常量值组成。枚举类型可以方便地定义一系列相关的常量，并对这些常量进行分类和操作。在Java中，我们可以使用枚举的valueOf方法来将一个字符串转换成相应的枚举常量。本文将详细介绍Java枚举的valueOf方法，包含代码示例和详细解释。
+
+2. 枚举的valueOf方法概述
+在Java中，枚举的valueOf方法是一个静态方法，用于将一个字符串转换成相应的枚举常量。它的定义如下：
+
+``` java
+public static <T extends Enum<T>> T valueOf(Class<T> enumType, String name)
+```
+
+其中，enumType表示枚举类型的Class对象，name表示要转换的字符串。该方法将返回一个枚举常量，如果没有找到相应的常量，则抛出IllegalArgumentException异常。
+
+3. 代码示例
+下面通过一个简单的示例来演示如何使用枚举的valueOf方法。
+
+3.1 定义枚举类型
+首先，我们定义一个枚举类型Season，表示四季。代码如下：
+
+``` java
+public enum Season {
+    SPRING, SUMMER, AUTUMN, WINTER
+}
+```
+
+3.2 使用valueOf方法
+然后，我们使用valueOf方法将字符串转换成枚举常量。代码如下：
+
+```java
+String seasonName = "SPRING";
+Season season = Season.valueOf(Season.class, seasonName);
+System.out.println(season);
+```
+
+运行以上代码，输出结果为：
+
+```java
+SPRING
+```
+
+以上代码中，我们首先定义了一个字符串seasonName，然后通过valueOf方法将字符串"SPRING"转换成了枚举常量Season.SPRING，并将其赋值给了变量season。最后，我们通过System.out.println方法打印出了变量season的值。
+
+4. valueOf方法的实现原理
+在Java中，枚举的valueOf方法是由编译器自动生成的。它的实现原理如下：
+
+4.1 获取枚举类型的所有常量
+首先，valueOf方法通过传入的enumType参数获取到枚举类型的Class对象，然后通过Class对象的getEnumConstants方法获取到该枚举类型的所有常量。代码如下：
+
+```java
+T[] enumConstants = enumType.getEnumConstants();
+```
+
+其中，T表示枚举类型的泛型。
+
+4.2 遍历比较常量名称
+然后，valueOf方法遍历比较每个常量的名称，直到找到与传入的name参数相等的常量名称。代码如下：
+
+```java
+for (T constant : enumConstants) {
+    if (constant.name().equals(name)) {
+        return constant;
+    }
+}
+```
+
+其中，constant.name()方法用于获取常量的名称。
+
+4.3 抛出异常
+如果没有找到相应的常量，valueOf方法将抛出IllegalArgumentException异常。代码如下：
+
+```java
+throw new IllegalArgumentException(name);
+```
+
+
+
+5. 注意事项
+在使用枚举的valueOf方法时，需要注意以下几点：
+
+5.1 字符串的大小写
+枚举的valueOf方法默认是区分大小写的，即字符串的大小写必须与枚举常量的大小写完全一致，否则将抛出IllegalArgumentException异常。如果需要忽略大小写，可以在valueOf方法之前调用String类的toLowerCase或toUpperCase方法，将字符串转换成统一的大小写。
+
+5.2 枚举常量的顺序
+
+枚举常量的顺序与其在枚举类型中定义的顺序一致。在使用valueOf方法时，传入的字符串必须与定义的枚举常量的名称完全一致，否则将抛出IllegalArgumentException异常。因此，在使用valueOf方法之前，需要确保传入的字符串的准确性。
+
+## 2023/9/15
+
+### Java枚举的ordinal() 方法
+通过调用枚举类型实例的 ordinal() 方法可以获取一个成员在枚举中的索引位置。下面的示例创建一个包含 3 个成员的枚举类型 Signal，然后调用 ordinal() 方法输出成员及对应索引位置。
+
+```java
+public class TestEnum1
+{
+    enum Signal
+    {
+        //定义一个枚举类型
+        GREEN,YELLOW,RED;
+    }
+    public static void main(String[] args)
+    {
+        for(int i=0;i<Signal.values().length;i++)
+        {
+            System.out.println("索引"+Signal.values()[i].ordinal()+"，值："+Signal.values()[i]);
+        }
+    }
+}
+```
+
+结果
+
+``` java
+//索引0，值：GREEN
+//索引1，值：YELLOW
+//索引2，值：RED
+```
+
+
+
+## 2023/9/16
+
+### Java instanceof运算符实例讲解
+
+**instanceof运算符**左面的操作数是一个**对象**，右面的操作数是一个**类**，当左面的对象是右面的类或子类创建的对象时，该运算符运算的
+
+结果是true，否则是false。
+
+**实例：**
+
+```java
+public class Application {
+    public static void main(String[] args){
+        Object o = new Student();
+        System.out.println(o instanceof Person);
+    }
+}
+```
+
+
+
+运行结果如下：
+
+```java
+true
+```
+
+## 2023/9/17
+
+### d java forEach使用
+foreach 是 Java 中的一种语法糖，目的是方便程序员开发和提高性能。其实就是编译期间以特定的字节码或特定的方式来对这些语法进行处理。
+
+1.普通数组for用法
+对于数组，foreach 循环实际上还是用的普通的 for 循环，怎么说foreach 循环就是for 循环
+
+```java
+int[] arr= {1,2,3,4,5}
+
+//普通for循环
+for(int i=0;i<arr.length;i++) 
+	System.out.println("数组元素:"+arr[i]);
+
+//for in写法
+for(int i:arr)
+	System.out.println("数组元素:"+i);
+
+```
+
+2.集合类forEach用法
+
+对于集合，foreach 循环实际上是用的 iterator 迭代器迭代，写法也一样。
+
+``` java
+ArrayList<Integer> arrlist = new ArrayList<Integer>();
+arrlist.add(1);
+arrlist.add(2);
+arrlist.add(3);
+//for in用法
+for(Integer a:arrlist)
+	System.out.println("集合数据："+a);
+	
+//迭代器循环
+for(Iterator<Integer> it = arrlist.iterator();it.hasNext();)
+	System.out.println("集合数据："+it.next());
+
+//forEach 循环
+arrlist.forEach(item->{
+    System.out.println("元素"+item);
+});
+
+//如果是map,传入的是kv对
+HashMap<String, String> map = new HashMap<>();
+map.forEach((k,v)->{
+     System.out.println(k);
+     System.out.println(v);
+});
+
+//forEach 循环(包含语法糖)
+arrlist.forEach(System.out::println);
+```
+
+待完善......
 
 
 
